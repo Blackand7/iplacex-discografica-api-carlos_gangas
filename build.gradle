@@ -5,8 +5,7 @@ plugins {
 }
 
 group = 'com.iplacex'
-version = '1'  // Cambiado según requerimiento
-
+version = '1'  
 sourceCompatibility = '21'
 targetCompatibility = '21'
 
