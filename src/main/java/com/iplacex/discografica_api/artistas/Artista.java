@@ -24,10 +24,10 @@ public class Artista {
     @NotNull(message = "El estado activo es obligatorio")
     public Boolean estaActivo;
     
-    // Constructor vacío
+ 
     public Artista() {}
     
-    // Constructor con parámetros
+
     public Artista(String nombre, List<String> estilos, Integer anioFundacion, Boolean estaActivo) {
         this.nombre = nombre;
         this.estilos = estilos;
