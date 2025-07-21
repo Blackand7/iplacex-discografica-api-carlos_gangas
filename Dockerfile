@@ -4,8 +4,9 @@ FROM gradle:8.5-jdk21 AS build
 # Establecer directorio de trabajo
 WORKDIR /app
 
-# Copiar archivos de configuración primero (para mejor cache de Docker)
+# Copiar archivos de configuración primero
 COPY build.gradle settings.gradle ./
+COPY gradle gradle
 
 # Copiar el código fuente
 COPY src ./src
@@ -13,8 +14,8 @@ COPY src ./src
 # Construir la aplicación
 RUN gradle clean build --no-daemon -x test
 
-# Etapa 2: Ejecución con OpenJDK
-FROM openjdk:21-jre-slim
+# Etapa 2: Ejecución con Eclipse Temurin (más compatible)
+FROM eclipse-temurin:21-jre
 
 # Establecer directorio de trabajo
 WORKDIR /app
