@@ -24,10 +24,9 @@ public class Disco {
     
     public List<String> canciones;
     
-    // Constructor vacío
+  
     public Disco() {}
     
-    // Constructor con parámetros
     public Disco(String artistaId, String nombre, Integer anioLanzamiento, List<String> canciones) {
         this.artistaId = artistaId;
         this.nombre = nombre;
