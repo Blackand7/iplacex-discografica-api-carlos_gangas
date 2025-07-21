@@ -18,16 +18,18 @@ public class ArtistaController {
     @Autowired
     private IArtistaRepository artistaRepository;
     
-    @PostMapping(value = "/artista", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+
+    @PostMapping(value = "/artistas", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> crearArtista(@Valid @RequestBody Artista artista) {
         try {
             Artista savedArtista = artistaRepository.save(artista);
             return ResponseEntity.status(HttpStatus.CREATED).body(savedArtista);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al crear artista");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al crear artista: " + e.getMessage());
         }
     }
     
+  
     @GetMapping(value = "/artistas", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Artista>> obtenerArtistas() {
         try {
@@ -38,7 +40,8 @@ public class ArtistaController {
         }
     }
     
-    @GetMapping(value = "/artista/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    // OBTENER ARTISTA POR ID - GET /api/artistas/{id}
+    @GetMapping(value = "/artistas/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> obtenerArtista(@PathVariable String id) {
         try {
             Optional<Artista> artista = artistaRepository.findById(id);
@@ -48,11 +51,12 @@ public class ArtistaController {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Artista no encontrado");
             }
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al buscar artista");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al buscar artista: " + e.getMessage());
         }
     }
     
-    @PutMapping(value = "/artista/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+   
+    @PutMapping(value = "/artistas/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> actualizarArtista(@PathVariable String id, @Valid @RequestBody Artista artista) {
         try {
             if (artistaRepository.existsById(id)) {
@@ -63,11 +67,12 @@ public class ArtistaController {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Artista no encontrado");
             }
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al actualizar artista");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al actualizar artista: " + e.getMessage());
         }
     }
     
-    @DeleteMapping(value = "/artista/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+ 
+    @DeleteMapping(value = "/artistas/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> eliminarArtista(@PathVariable String id) {
         try {
             if (artistaRepository.existsById(id)) {
@@ -77,7 +82,7 @@ public class ArtistaController {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Artista no encontrado");
             }
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al eliminar artista");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al eliminar artista: " + e.getMessage());
         }
     }
 }
